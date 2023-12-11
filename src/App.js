@@ -3,7 +3,7 @@ import './App.css';
 import Authentication from './components/authentication';
 import Main from './components/main';
 import Header from './layouts/header';
-import Champion from './leagueOfLegend/champion';
+import Champion from './leagueOfLegendAPI/champion';
 
 function App() {
   return (
@@ -12,9 +12,8 @@ function App() {
       <Routes>
         <Route path='/'element={<Main/>}></Route>
         <Route path='/authentication'element={<Authentication/>}></Route>
-        <Route path='/'element={<Main/>}></Route>
+        <Route path='/champion'element={<Champion/>}></Route>
       </Routes>
-      {/* <Champion/> */}
     </div>
   );
 }
