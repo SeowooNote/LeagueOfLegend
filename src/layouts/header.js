@@ -9,7 +9,7 @@ export default function Header() {
         <div className='flex gap-x-40'>
           <div className='hover:bg-zinc-700'><Link to="/">Home</Link></div>
           <div className='hover:bg-zinc-700'><Link to="/champion">Champion</Link></div>
-          <div className='hover:bg-zinc-700'><Link to="/items"></Link>Items</div>
+          <div className='hover:bg-zinc-700'><Link to="/items">Items</Link></div>
         </div>
         <div className='hover:bg-zinc-700'><Link to="/my">My</Link></div>
       </div>

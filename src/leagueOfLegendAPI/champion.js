@@ -22,29 +22,29 @@ export default function Champion() {
         setShowPopup(false);
     }
 
-    useEffect(async () => {
-        const fetchChampionData = async () => {
-            try {
-                const response = await fetch(
-                    "https://ddragon.leagueoflegends.com/cdn/13.24.1/data/ko_KR/champion.json"
-                );
+    const fetchChampionData = async () => {
+        try {
+            const response = await fetch(
+                "https://ddragon.leagueoflegends.com/cdn/13.24.1/data/ko_KR/champion.json"
+            );
 
-                if(response.ok) {
-                    const data = await response.json();
-                    setChampionData(data);
-                } else {
-                    throw new Error("Failed to fetch data");
-                }
-            } catch(error) {
-                console.log("Error fetching champion data: ", error);
+            if(response.ok) {
+                const data = await response.json();
+                setChampionData(data);
+            } else {
+                throw new Error("Failed to fetch data");
             }
+        } catch(error) {
+            console.log("Error fetching champion data: ", error);
         }
+    }
 
+    useEffect(() => {
         fetchChampionData();
     }, []);
 
     return (
-        <div className='flex justify-center items-center bg-lol-dark-blue'>
+        <div className='flex justify-center items-center'>
             <div className='flex flex-col w-4/5 justify-center items-center '>
                 <div className='flex'>
                     <h1 className='text-lol-header-text-color'>리그오브레전드 챔피언 데이터</h1>

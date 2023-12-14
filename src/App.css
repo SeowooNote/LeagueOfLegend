@@ -1,3 +1,33 @@
+@keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  html, body{
+    height: auto;
+    margin: 0;
+    background: linear-gradient(
+      -45deg,
+      #cdfafa,
+      #0ac8b9,
+      #0397ab,
+      #005a82,
+      #0a323c,
+      #091428,
+      #0a1428
+    );
+    background-size: 500% 500%;
+    animation: gradient 10s ease infinite;
+  }
+
 .lol-main-button{
     clip-path: polygon(0 0, 80% 0%, 100% 20%, 100% 100%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
 }

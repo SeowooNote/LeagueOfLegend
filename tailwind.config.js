@@ -12,7 +12,10 @@ module.exports = {
         'lol-sky-blue' : 'rgb(11, 198, 227)',
         'lol-sky-blue-hover' : 'rgba(11, 198, 227, 0.5)',
         'lol-dark-blue' : '#091428',
-        'lol-dark-blue-hover' : 'rgba(9, 20, 40, 0.1)'
+        'lol-dark-blue-hover' : 'rgba(9, 20, 40, 0.1)',
+        'lol-gold' : '#F0E6D2',
+        'lol-gold1': '#C8AA6E',
+        'lol-gold2': '#785A28',
       },
       width: {
         'lol-main-button' : '195px',
