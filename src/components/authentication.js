@@ -141,7 +141,7 @@ export default function Authentication() {
 
   return (
     <div className='flex justify-center'>
-      <div className='flex justify-center items-center w-4/5 gap-2 border-lol-gold1'>
+      <div className='flex justify-center items-center w-4/5 gap-2 border-2 border-lol-gold1'>
         {view === 'sign-in' ? (<SignIn/>) : (<SignUp/>)}
         
         <div className='w-4/5'>

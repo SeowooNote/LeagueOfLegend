@@ -50,33 +50,33 @@ export default function Champion() {
                     <h1 className='text-lol-header-text-color'>리그오브레전드 챔피언 데이터</h1>
                 </div>
                 {championData ? (
-                <div className='flex flex-wrap justify-center'>
-                    {Object.values(championData.data).sort((a, b) => {
-                        return a.name.localeCompare(b.name);
-                    }).map(champion => (
-                    <div key={champion.id} onClick={() => onChampionHnadler(champion.id, champion.name, champion.blurb)} className='flex flex-col items-center transition hover:scale-125'>
-                        <img
-                        src={`https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/${champion.id}.png`}
-                        alt={champion.name}
-                        />
-                        <h2 className='text-lol-header-text-color'>{champion.name}</h2>
-                    </div>
-                    ))}
+                <div className='grid grid-cols-10'>
+                        {Object.values(championData.data).sort((a, b) => {
+                            return a.name.localeCompare(b.name);
+                        }).map(champion => (
+                        <div key={champion.id} onClick={() => onChampionHnadler(champion.id, champion.name, champion.blurb)} className='flex flex-col items-center transition hover:scale-125'>
+                            <img
+                            src={`https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/${champion.id}.png`}
+                            alt={champion.name}
+                            />
+                            <h2 className='text-lol-gold'>{champion.name}</h2>
+                        </div>
+                        ))}
                 </div>
                 ) : (
                 <p>Loading champion data...</p>
                 )}
                 {showPopup ? (
-                    <div className='w-4/5'>
-                        <div className='w-4/5 champion-box'>
-                            <div className='close' onClick={onCloseHandler}></div>
+                    <div className='fixed top-10 w-4/5'>
+                        <div className='relative w-full champion-box'>
+                            <div className='close absolute' onClick={onCloseHandler}></div>
                             <img
                             src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championId}_0.jpg`}
                             alt={championName}
-                            className='w-full'
+                            className='w-full backdrop-brightness-0'
                             />
                             <div className='text-7xl text-lol-text-color1 champion-name'>{championName}</div>
-                            <div className='text-3xl text-lol-text-color2 champion-description'>{championDescription}</div>
+                            <div className='text-2xl text-lol-gold champion-description'>{championDescription}</div>
                         </div>
                     </div>
                 ) : (

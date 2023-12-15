@@ -1,3 +1,4 @@
+/* body gradient */
 @keyframes gradient {
     0% {
       background-position: 0% 50%;
@@ -34,7 +35,6 @@
 
 /* close 버튼 css */
 .close {
-    position: absolute;
     right: 0;
     width: 50px;
     height: 50px;
@@ -57,4 +57,15 @@
 }
 .close:after {
     transform: rotate(-45deg);
+}
+
+/* popUp 창 */
+.champion-name{
+  position: absolute;
+  top: 0;
+}
+
+.champion-description{
+  position: absolute;
+  bottom: 0;
 }
