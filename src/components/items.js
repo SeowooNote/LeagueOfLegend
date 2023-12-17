@@ -20,7 +20,7 @@ export default function Items() {
     setSelectedItemDescription(itemBlurb);
     setSelectedItemGold(itemGold);
     setShowPopup(true);
-    console.log(itemId, itemName, itemBlurb);
+    // console.log(itemId, itemName, itemBlurb);
   };
 
   const onCloseHandler = () => {
@@ -32,16 +32,38 @@ export default function Items() {
   };
 
   const onAddToCart = () => {
-    setCartItems((prevItems) => [
-      ...prevItems,
-      { id: selectedItemId, name: selectedItemName, gold: selectedItemGold },
-    ]);
+    const isItemInCart = cartItems.some((item) => item.id === selectedItemId);
 
-    // 해당 아이템이 장바구니에 추가되었음을 표시하는 상태 업데이트
-    setAddedToCart((prevAddedToCart) => ({
-      ...prevAddedToCart,
-      [selectedItemId]: true,
-    }));
+    if (isItemInCart) {
+      // 이미 장바구니에 있는 아이템이면 제거
+      setCartItems((prevItems) =>
+        prevItems.filter((item) => item.id !== selectedItemId)
+      );
+      alert("장바구니에서 제거되었습니다.");
+      // 해당 아이템이 장바구니에 추가되었음을 표시하는 상태 업데이트 취소
+      setAddedToCart((prevAddedToCart) => ({
+        ...prevAddedToCart,
+        [selectedItemId]: false,
+      }));
+    } else {
+      // 아이템이 장바구니에 없으면 추가
+      setCartItems((prevItems) => [
+        ...prevItems,
+        { id: selectedItemId, name: selectedItemName, gold: selectedItemGold },
+      ]);
+      // 해당 아이템이 장바구니에 추가되었음을 표시
+      setAddedToCart((prevAddedToCart) => ({
+        ...prevAddedToCart,
+        [selectedItemId]: true,
+      }));
+      alert("장바구니에 추가되었습니다.");
+    }
+
+    setShowPopup(false);
+  };
+
+  const removeFromCart = (itemId) => {
+    setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
   };
 
   const fetchItemData = async () => {
@@ -114,21 +136,27 @@ export default function Items() {
           <h1 className="text-lol-header-text-color text-4xl mt-5 mb-5">
             리그 오브 레전드 아이템 데이터
           </h1>
-          <input
-            type="text"
-            placeholder="아이템 검색"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="border-2 border-lol-gold1 p-2 h-full"
-          />
-          <div
-            className="text-4xl text-lol-header-text-color"
-            onClick={toggleCart}
-          >
-            Cart
+          <div className="flex gap-4">
+            <input
+              type="text"
+              placeholder="아이템 검색"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="border-2 border-lol-gold1 p-2 h-full"
+            />
+            <div
+              className="text-4xl text-lol-header-text-color"
+              onClick={toggleCart}
+            >
+              Cart
+            </div>
           </div>
           {showCart && (
-            <ItemCarts closeCart={toggleCart} cartItems={cartItems} />
+            <ItemCarts
+              closeCart={toggleCart}
+              cartItems={cartItems}
+              removeFromCart={removeFromCart}
+            />
           )}
         </div>
         {filteredItems.length > 0 ? (
@@ -159,20 +187,23 @@ export default function Items() {
           <div className="fixed inset-0 overflow-hidden">
             <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
               <div className="fixed inset-0 transition-opacity">
-                <div className="absolute inset-0 bg-gray-900 opacity-75"></div>
+                <div
+                  className="z-0 absolute inset-0 bg-gray-900 opacity-75"
+                  onClick={onCloseHandler}
+                ></div>
               </div>
               <span className="hidden sm:inline-block sm:align-middle sm:h-screen"></span>
               &#8203;
               <div className="inline-block bg-lol-dark-blue text-left transform transition-all sm:my-8 sm:align-middle sm:w-3/5">
-                <div className="w-full h-full relative flex border-4 border-lol-gold1 p-4">
+                <div className="z-10 w-full h-full relative flex border-4 border-lol-gold1 p-4">
                   <div
-                    className="close absolute cursor-pointer top-2 right-2 text-white text-xl"
+                    className="close absolute cursor-pointer top-0 right-2 text-white text-xl"
                     onClick={onCloseHandler}
                   ></div>
                   <img
                     src={`https://ddragon.leagueoflegends.com/cdn/13.24.1/img/item/${selectedItemId}.png`}
                     alt={selectedItemName}
-                    className="w-1/3 h-full object-cover"
+                    className="w-1/5 h-full object-cover border-2 border-lol-gold1"
                   />
                   <div className="flex flex-col p-4 w-2/3">
                     <div className="text-4xl pb-3 text-lol-text-color1">
@@ -198,7 +229,7 @@ export default function Items() {
                         onClick={onAddToCart}
                         className={`mt-4 bg-lol-gold1 text-white p-2 rounded-md cursor-pointer ${
                           addedToCart[selectedItemId] ? "added-to-cart" : ""
-                        }`}
+                        } absolute bottom-5 right-5`}
                       >
                         {addedToCart[selectedItemId]
                           ? "장바구니 추가됨"
