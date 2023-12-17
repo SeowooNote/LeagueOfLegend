@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 export default function Champion() {
   const [championData, setChampionData] = useState(null);
@@ -6,6 +6,8 @@ export default function Champion() {
   const [championName, setChampionName] = useState(null);
   const [championDescription, setChampionDescription] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
+  const [searchChampion, setSearchChampion] = useState(null);
+  const modalRef = useRef();
 
   const onChampionHnadler = (championId, championName, championBlurb) => {
     setChampionId(championId);
@@ -38,21 +40,53 @@ export default function Champion() {
     }
   };
 
+  const filterChampionData = (searchChampion) => {
+    if (!championData) {
+      return [];
+    }
+    if(!searchChampion) {
+      return Object.values(championData.data);
+    }
+    const filteredChampions = Object.values(championData.data).filter((champion) =>
+    champion.name.toLowerCase().includes(searchChampion.toLowerCase())
+    );
+    return filteredChampions;
+  }
+
+  const onOutsideHandler = (e) => {
+    if(modalRef.current && !modalRef.current.contains(e.target)) setShowPopup(false);
+  }
+
   useEffect(() => {
     fetchChampionData();
-  }, []);
+    if(showPopup){
+      document.addEventListener('mousedown', onOutsideHandler);
+    }else{
+      document.removeEventListener('mousedown', onOutsideHandler);
+    }
+    return () => {
+      document.removeEventListener('mousedown', onOutsideHandler);
+    };
+  }, [showPopup]);
 
   return (
     <div className="flex justify-center items-center">
-      <div className="flex flex-col w-4/5 justify-center items-center ">
-        <div className="flex">
-          <h1 className="text-lol-header-text-color">
+      <div className="flex flex-col  w-4/5">
+        <div className="flex justify-between items-center my-3">
+          <h1 className="text-lol-header-text-color text-2xl">
             리그오브레전드 챔피언 데이터
           </h1>
+          <input
+            type='text'
+            placeholder='챔피언 검색'
+            value={searchChampion}
+            onChange={(e) => setSearchChampion(e.target.value)}
+            className='border-4 border-lol-gold1 p-2'
+          />            
         </div>
         {championData ? (
           <div className="grid grid-cols-10">
-            {Object.values(championData.data)
+            {filterChampionData(searchChampion)
               .sort((a, b) => {
                 return a.name.localeCompare(b.name);
               })
@@ -66,13 +100,12 @@ export default function Champion() {
                       champion.blurb
                     )
                   }
-                  className="flex flex-col items-center transition hover:scale-125"
+                  className="flex flex-col items-center transition hover:scale-125 2xl:mb-3.5"
                 >
                   <img
                     src={`https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/${champion.id}.png`}
                     alt={champion.name}
                   />
-                  <h2 className="text-lol-gold">{champion.name}</h2>
                 </div>
               ))}
           </div>
@@ -80,24 +113,31 @@ export default function Champion() {
           <p>Loading champion data...</p>
         )}
         {showPopup ? (
-          <div className="fixed top-10 w-4/5">
-            <div className="relative w-full champion-box">
-              <div className="close absolute" onClick={onCloseHandler}></div>
-              <img
-                src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championId}_0.jpg`}
-                alt={championName}
-                className="w-full backdrop-brightness-0"
-              />
-              <div className="text-7xl text-lol-text-color1 champion-name">
-                {championName}
-              </div>
-              <div className="text-2xl text-lol-gold champion-description">
-                {championDescription}
+          
+          <div>
+            <div className="fixed top-0 left-0 w-full h-full inset-0 bg-gray-900 opacity-75 z-40"></div>
+            <div className="fixed top-10 w-4/5 border-4 border-lol-gold1 z-50" ref={modalRef}>
+              <div className="relative w-full champion-box">
+                <div className="close absolute" onClick={onCloseHandler}></div>
+                <img
+                  src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championId}_0.jpg`}
+                  alt={championName}
+                  className="w-full champion-image"
+                />
+                <div className="text-7xl text-lol-text-color1 champion-name">
+                  {championName}
+                </div>
+                <div className="text-2xl text-lol-gold champion-description">
+                  {championDescription}
+                </div>
               </div>
             </div>
           </div>
         ) : (
           <></>
+        )}
+        {filterChampionData(searchChampion).length === 0 && (
+            <p className="text-lol-header-text-color text-4xl text-center m-12">검색 결과가 없습니다.</p>
         )}
       </div>
     </div>
