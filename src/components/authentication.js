@@ -32,7 +32,7 @@ export default function Authentication() {
       onLoginHandler();
     }
 
-    const onGithubHandler = () => {
+    const onGithubHandler = async (e) => {
       firebaseAuthGithub();
     }
 
@@ -51,7 +51,7 @@ export default function Authentication() {
     }
 
     return(
-      <div className='w-1/5 p-1'>
+      <div className='w-1/5 flex-col justify-center p-4'>
         <div className='mb-20px'><img src={logo}/></div>
         <div className='mb-10px'>
           <div>
@@ -77,7 +77,7 @@ export default function Authentication() {
           <button type='submit' onClick={onLoginHandler} className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-donga-light-blue sm:text-sm sm:leading-6 text-lol-header-text-color hover:bg-lol-sky-blue-hover'>Sign In</button>
         </div>
         <div>
-          <button onClick={onGithubHandler} className='w-12'><img src={githubLogo}/></button>
+          <button onClick={onGithubHandler} className='flex justify-center items-center mt-6 block w-full h-9 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-donga-light-blue sm:text-sm sm:leading-6 text-lol-header-text-color hover:bg-white'><img src={githubLogo} className='h-full bg-white rounded-full'/></button>
         </div>
       </div>
     );
@@ -141,12 +141,12 @@ export default function Authentication() {
 
   return (
     <div className='flex justify-center'>
-      <div className='flex justify-center items-center w-4/5 gap-2 border-2 border-lol-gold1'>
+      <div className='flex justify-center items-center border-2 border-lol-gold1 bg-lol-dark-blue'>
         {view === 'sign-in' ? (<SignIn/>) : (<SignUp/>)}
         
         <div className='w-4/5'>
           <video loop autoPlay muted playsInline>
-            <source src='https://assets.contentstack.io/v3/assets/blt731acb42bb3d1659/blte5d5ac96b514d502/5f495971a21dbd47faf26c0b/ss2020_kaisa_1920x1080.mp4' type='video/webm'></source>
+            <source src='https://assets.contentstack.io/v3/assets/blt731acb42bb3d1659/blt755ed452ae53c9a2/5f49597270ca0f65ba10a439/ss2020_sylas_garen_lux_1920x1080.mp4' type='video/webm'></source>
           </video>
         </div>
       </div>

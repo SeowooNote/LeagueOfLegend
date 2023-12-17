@@ -12,7 +12,6 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Main />}></Route>
-        <Route path="/authentication" element={<Authentication />}></Route>
         <Route path="/champion" element={<Champion />}></Route>
         <Route path="/items" element={<Items />}></Route>
       </Routes>
