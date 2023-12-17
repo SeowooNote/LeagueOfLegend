@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import goldImg from "../assets/goldimg.webp";
+import ItemCarts from "./itemCarts";
 
 export default function Items() {
   const [itemData, setItemData] = useState(null);
@@ -8,6 +9,9 @@ export default function Items() {
   const [selectedItemDescription, setSelectedItemDescription] = useState(null);
   const [selectedItemGold, setSelectedItemGold] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
+  const [showCart, setShowCart] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
+  const [addedToCart, setAddedToCart] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
 
   const onItemHandler = (itemId, itemName, itemBlurb, itemGold) => {
@@ -21,6 +25,23 @@ export default function Items() {
 
   const onCloseHandler = () => {
     setShowPopup(false);
+  };
+
+  const toggleCart = () => {
+    setShowCart(!showCart);
+  };
+
+  const onAddToCart = () => {
+    setCartItems((prevItems) => [
+      ...prevItems,
+      { id: selectedItemId, name: selectedItemName, gold: selectedItemGold },
+    ]);
+
+    // 해당 아이템이 장바구니에 추가되었음을 표시하는 상태 업데이트
+    setAddedToCart((prevAddedToCart) => ({
+      ...prevAddedToCart,
+      [selectedItemId]: true,
+    }));
   };
 
   const fetchItemData = async () => {
@@ -100,6 +121,15 @@ export default function Items() {
             onChange={(e) => setSearchTerm(e.target.value)}
             className="border-2 border-lol-gold1 p-2 h-full"
           />
+          <div
+            className="text-4xl text-lol-header-text-color"
+            onClick={toggleCart}
+          >
+            Cart
+          </div>
+          {showCart && (
+            <ItemCarts closeCart={toggleCart} cartItems={cartItems} />
+          )}
         </div>
         {filteredItems.length > 0 ? (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-6">
@@ -164,6 +194,16 @@ export default function Items() {
                       {selectedItemGold
                         ? `${selectedItemGold.total}`
                         : "알 수 없음"}
+                      <button
+                        onClick={onAddToCart}
+                        className={`mt-4 bg-lol-gold1 text-white p-2 rounded-md cursor-pointer ${
+                          addedToCart[selectedItemId] ? "added-to-cart" : ""
+                        }`}
+                      >
+                        {addedToCart[selectedItemId]
+                          ? "장바구니 추가됨"
+                          : "장바구니에 추가"}
+                      </button>
                     </div>
                   </div>
                 </div>
