@@ -1,5 +1,5 @@
 import { GithubAuthProvider, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signInWithPopup, updateProfile } from 'firebase/auth';
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { firebaseAuth, firebaseAuthGithub, firebaseAuthGoogle, firebaseDataBase } from '../firebase/firebase';
 import { useNavigate } from 'react-router-dom';
 import { collection, addDoc } from 'firebase/firestore';
@@ -16,7 +16,6 @@ export default function Authentication() {
 
   // 로그인 Card
   const SignIn = () => {
-
     // email(ID)
     const[email, setEmail] = useState("");
     // password(PW)
@@ -61,7 +60,7 @@ export default function Authentication() {
         <div className='mb-20px'><img src={logo}/></div>
         <div className='mb-10px'>
           <div>
-            <label className='text-lol-header-text-color'>Email address</label>
+            <label className='text-lol-gold'>Email address</label>
           </div>
           <div>
             <input id='email' name='email' type='email' autoComplete='email' value={email} onChange={onEmailHandler} required className='className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset  placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lol-sky-blue-hover sm:text-sm sm:leading-6' placeholder='email을 입력해주세요.'/>
@@ -69,24 +68,26 @@ export default function Authentication() {
         </div>
         <div className='mb-15px'>
           <div>
-            <label className='text-lol-header-text-color'>Password</label>
+            <label className='text-lol-gold'>Password</label>
           </div>
           <div>
             <input id='password' name='password' type='password' autoComplete='current-password' value={password} onChange={onPasswordHandler} onKeyDown={onKeyDownHandler} required className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lol-sky-blue-hover sm:text-sm sm:leading-6' placeholder='password를 입력해주세요.'/>
           </div>
         </div>
         <div className='flex justify-between'>
-          <p className='text-lol-header-text-color'>계정이 없으신가요?</p>
-          <p onClick={onSignUpHandler} className='cursor-pointer hover:underline text-lol-header-text-color'>회원가입</p>
+          <p className='text-lol-gold'>계정이 없으신가요?</p>
+          <p onClick={onSignUpHandler} className='cursor-pointer hover:underline text-lol-gold'>회원가입</p>
         </div>
         <div>
           <button type='submit' onClick={onLoginHandler} className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-donga-light-blue sm:text-sm sm:leading-6 text-lol-header-text-color hover:bg-lol-sky-blue-hover'>Sign In</button>
         </div>
+        
         <div>
-          <button onClick={onGoogleHandler} className='flex justify-center items-center mt-6 block w-full h-9 rounded-md border-0 py-1.5 shadow-sm ring-1 ring-gray-300 hover:bg-white'><img src={googleLogo} className='h-full rounded-full'/></button>
+        <p className='text-lol-gold mt-3'>연동 로그인</p>
+          <button onClick={onGoogleHandler} className='flex justify-center items-center block w-full h-9 rounded-md border-0 py-1.5 shadow-sm ring-1 ring-gray-300 hover:bg-lol-sky-blue-hover'><img src={googleLogo} className='h-full rounded-full'/></button>
         </div>
         <div>
-          <button onClick={onGithubHandler} className='flex justify-center items-center mt-6 block w-full h-9 rounded-md border-0 py-1.5 shadow-sm ring-1 ring-gray-300 hover:bg-white'><img src={githubLogo} className='h-full rounded-full bg-white'/></button>
+          <button onClick={onGithubHandler} className='flex justify-center items-center mt-1 block w-full h-9 rounded-md border-0 py-1.5 shadow-sm ring-1 ring-gray-300 hover:bg-lol-sky-blue-hover'><img src={githubLogo} className='h-full rounded-full bg-white'/></button>
         </div>
       </div>
     );
@@ -151,10 +152,10 @@ export default function Authentication() {
     return(
       <div className='w-2/5 p-4 h-full'>
         <div className='mb-20px'><img src={logo}/></div>
-        <p className='mb-10px text-lol-header-text-color'>회원가입</p>
+        <p className='mb-10px text-lol-gold'>회원가입</p>
         <div className='mb-10px'>
             <div>
-              <label className='text-lol-header-text-color'>Email address</label>
+              <label className='text-lol-gold'>Email address</label>
             </div>
             <div>
               <input id='email' name='email' type='email' autoComplete='email' value={email} onChange={onEmailHandler} required className='className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lol-sky-blue-hover sm:text-sm sm:leading-6' placeholder='사용할 email을 입력해주세요.'/>
@@ -162,7 +163,7 @@ export default function Authentication() {
         </div>
         <div className='mb-15px'>
           <div>
-            <label className='text-lol-header-text-color'>Password</label>
+            <label className='text-lol-gold'>Password</label>
           </div>
           <div>
             <input id='password' name='password' type='password' autoComplete='current-password' value={password} onChange={onPasswordHandler} required className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lol-sky-blue-hover sm:text-sm sm:leading-6' placeholder='사용할 password를 입력해주세요.'/>
@@ -170,15 +171,15 @@ export default function Authentication() {
         </div>
         <div className='mb-15px'>
           <div>
-            <label className='text-lol-header-text-color'>Nickname</label>
+            <label className='text-lol-gold'>Nickname</label>
           </div>
           <div>
             <input id='nickname' name='nickname' type='text' autoComplete='nickname' value={nickname} onChange={onNicknameHandler} onKeyDown={onKeyDownHandler} required className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lol-sky-blue-hover sm:text-sm sm:leading-6' placeholder='사용할 nickname을 입력해주세요.'/>
           </div>
         </div>
         <div className='flex justify-between'>
-          <p className='text-lol-header-text-color'>계정이 있으신가요?</p>
-          <p onClick={onSginInHandler} className='cursor-pointer hover:underline text-lol-header-text-color'>로그인</p>
+          <p className='text-lol-gold'>계정이 있으신가요?</p>
+          <p onClick={onSginInHandler} className='cursor-pointer hover:underline text-lol-gold'>로그인</p>
         </div>
         <div>
           <button type='submit' onClick={onSignUpHandler} className='className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-donga-light-blue sm:text-sm sm:leading-6 text-lol-header-text-color hover:bg-lol-sky-blue-hover'>Sign Up</button>
