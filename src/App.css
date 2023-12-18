@@ -28,6 +28,7 @@ body {
   );
   background-size: 500% 500%;
   animation: gradient 10s ease infinite;
+  cursor: url(./assets/cursor.png), auto;
 }
 
 .lol-main-button {
