@@ -91,6 +91,10 @@ body {
   filter: brightness(50%);
 }
 
-.profile-champion-image-blur {
-  filter: blur(90px);
+.profile-opacity {
+  opacity: 0.5;
+}
+
+.bg-opacity-50 {
+  --tw-bg-opacity: 0.5;
 }
