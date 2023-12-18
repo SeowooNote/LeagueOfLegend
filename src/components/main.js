@@ -43,7 +43,7 @@ export default function Main() {
         alt="logo"
       ></img>
       <div
-        className="flex justify-center items-center absolute bottom-24 w-lol-main-button h-lol-main-button bg-lol-sky-blue lol-main-button cursor-pointer hover:bg-lol-sky-blue-hover"
+        className="flex justify-center items-center absolute bottom-24 w-lol-main-button h-lol-main-button bg-lol-sky-blue text-lol-gold lol-main-button cursor-pointer hover:bg-lol-sky-blue-hover"
         onClick={onStartHandler}
       >
         Start
