@@ -1,5 +1,5 @@
 import React from "react";
-import goldImg from "../assets/goldimg.webp";
+import goldImg from "../assets/goldImg.webp";
 
 export default function ItemCarts({ closeCart, cartItems, removeFromCart }) {
   const handleCloseCart = () => {
@@ -90,5 +90,3 @@ export default function ItemCarts({ closeCart, cartItems, removeFromCart }) {
     </div>
   );
 }
-
-//카트 아이템 삭제와 아이템 리스트 장바구니 상황 동기화해야함

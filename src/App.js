@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Authentication from "./components/authentication";
 import Main from "./components/main";
 import Header from "./layouts/header";
 import Champion from "./leagueOfLegendAPI/champion";
 import Items from "./components/items";
+import MyPage from "./components/myPage";
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
         <Route path="/" element={<Main />}></Route>
         <Route path="/champion" element={<Champion />}></Route>
         <Route path="/items" element={<Items />}></Route>
+        <Route path="/mypage" element={<MyPage />}></Route>
       </Routes>
     </div>
   );

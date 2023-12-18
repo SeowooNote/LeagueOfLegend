@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import goldImg from "../assets/goldimg.webp";
+import goldImg from "../assets/goldImg.webp";
 import ItemCarts from "./itemCarts";
 
 export default function Items() {
@@ -232,7 +232,7 @@ export default function Items() {
                         } absolute bottom-5 right-5`}
                       >
                         {addedToCart[selectedItemId]
-                          ? "장바구니 추가됨"
+                          ? "장바구니에서 제거"
                           : "장바구니에 추가"}
                       </button>
                     </div>
