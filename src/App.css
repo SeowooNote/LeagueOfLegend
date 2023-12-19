@@ -99,3 +99,14 @@ body {
 .bg-opacity-50 {
   --tw-bg-opacity: 0.5;
 }
+
+/* header 드롭다운 */
+.drop-down-content{
+  width: 195.55px;
+  display: none;
+}
+
+.drop-down:hover .drop-down-content{
+  display: block;
+}
+

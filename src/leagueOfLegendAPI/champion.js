@@ -74,8 +74,8 @@ export default function Champion() {
       <div className="flex flex-col  w-4/5">
         <div className="flex justify-between items-center my-3">
           <h1 className="text-lol-gold text-2xl">
-            리그오브레전드 챔피언 데이터
-          </h1>
+            리그 오브 레전드 챔피언 데이터
+          </h1> 
           <input
             type='text'
             placeholder='챔피언 검색'
