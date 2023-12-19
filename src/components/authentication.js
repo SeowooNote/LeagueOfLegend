@@ -1,4 +1,4 @@
-import { GithubAuthProvider, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signInWithPopup, updateProfile } from 'firebase/auth';
+import { GithubAuthProvider, browserSessionPersistence, createUserWithEmailAndPassword, getAuth, setPersistence, signInWithEmailAndPassword, signInWithPopup, updateProfile } from 'firebase/auth';
 import React, { useState } from 'react';
 import { firebaseAuth, firebaseAuthGithub, firebaseAuthGoogle, firebaseDataBase } from '../firebase/firebase';
 import { useNavigate } from 'react-router-dom';
@@ -42,10 +42,12 @@ export default function Authentication() {
 
     const onLoginHandler = async() => {
       try{
-        const currentUserInfo = await signInWithEmailAndPassword(firebaseAuth, email, password);
+        setPersistence(firebaseAuth, browserSessionPersistence).then(async () => {
+          const currentUserInfo = await signInWithEmailAndPassword(firebaseAuth, email, password);
+          return currentUserInfo;
+        })
         alert('로그인 성공');
         navigator('/mypage');
-        console.log(currentUserInfo);
       } catch(e) {
         alert('로그인 실패');
       }
