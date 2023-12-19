@@ -133,7 +133,7 @@ export default function Items() {
     <div className="flex justify-center items-center">
       <div className="flex flex-col w-4/5 justify-center items-center">
         <div className="flex items-center justify-between w-full">
-          <h1 className="text-lol-header-text-color text-4xl mt-5 mb-5">
+          <h1 className="text-lol-header-text-color text-2xl mt-5 mb-5">
             리그 오브 레전드 아이템 데이터
           </h1>
           <div className="flex gap-4">
@@ -145,7 +145,7 @@ export default function Items() {
               className="border-2 border-lol-gold1 p-2 h-full"
             />
             <div
-              className="text-4xl text-lol-header-text-color"
+              className="text-2xl text-lol-header-text-color"
               onClick={toggleCart}
             >
               Cart

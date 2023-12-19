@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import LikeList from "./likeList";
 import CommentsList from "./commentsList";
 import settings from "../../assets/settings.png";
+import IconChange from "./iconChange";
+import BgChange from "./bgChange";
 
 export default function MyPage() {
   const [likeList, setLikeList] = useState(true);
   const [commentsList, setCommentsList] = useState(false);
+  const [iconChangeShow, setIconChangeShow] = useState(false);
+  const [bgChangeShow, setBgChangeShow] = useState(false);
 
   const onLikeListHandler = () => {
     setLikeList(true);
@@ -15,6 +19,22 @@ export default function MyPage() {
   const onCommentsListHandler = () => {
     setCommentsList(true);
     setLikeList(false);
+  };
+
+  const showIconChangeHandler = () => {
+    setIconChangeShow(true);
+  };
+
+  const toggleIconChange = () => {
+    setIconChangeShow(!iconChangeShow);
+  };
+
+  const showBgChangeHandler = () => {
+    setBgChangeShow(true);
+  };
+
+  const toggleBgChange = () => {
+    setBgChangeShow(!bgChangeShow);
   };
 
   return (
@@ -31,17 +51,19 @@ export default function MyPage() {
               src={settings}
               alt="edit"
               className="w-4 h-4 absolute right-5 top-5"
+              onClick={showBgChangeHandler}
             ></img>
             <div className="h-28 w-28 rounded-full absolute top-2.5 left-9">
               <img
                 src="https://ddragon.leagueoflegends.com/cdn/13.24.1/img/profileicon/6.png"
                 alt="대충 아이콘 이미지"
-                className="rounded-full"
+                className="rounded-full border-2 border-lol-gold1"
               ></img>
               <img
                 src={settings}
                 alt="edit"
                 className="w-4 h-4 absolute right-0 top-0"
+                onClick={showIconChangeHandler}
               ></img>
             </div>
             <div className="w-52 text-lol-gold1 text-3xl absolute top-12 left-44">
@@ -76,6 +98,10 @@ export default function MyPage() {
           </div>
         </div>
       </div>
+      {iconChangeShow && (
+        <IconChange closeIconChange={() => toggleIconChange()} />
+      )}
+      {bgChangeShow && <BgChange closeBgChange={() => toggleBgChange()} />}
     </div>
   );
 }

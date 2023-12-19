@@ -18,7 +18,7 @@ export default function CommentsList() {
             "님들 이거 개꿀딱임"
           </div>
           <div className="w-1/6 h-16 absolute right-0 flex flex-row">
-            <div className="text-lg text-lol-gold my-auto">수정</div>
+            <div className="text-lg text-lol-gold my-auto ml-10">수정</div>
             <div className="text-lg text-red-500 my-auto ml-5">삭제</div>
           </div>
         </div>
@@ -35,7 +35,7 @@ export default function CommentsList() {
             "가붕이쉑 ㄹㅇㅋㅋ"
           </div>
           <div className="w-1/6 h-16 absolute right-0 flex flex-row">
-            <div className="text-lg text-lol-gold my-auto">수정</div>
+            <div className="text-lg text-lol-gold my-auto ml-10">수정</div>
             <div className="text-lg text-red-500 my-auto ml-5">삭제</div>
           </div>
         </div>
@@ -52,7 +52,7 @@ export default function CommentsList() {
             "개씹사기 챔 ㅎㄷㄷ"
           </div>
           <div className="w-1/6 h-16 absolute right-0 flex flex-row">
-            <div className="text-lg text-lol-gold my-auto">수정</div>
+            <div className="text-lg text-lol-gold my-auto ml-10">수정</div>
             <div className="text-lg text-red-500 my-auto ml-5">삭제</div>
           </div>
         </div>
