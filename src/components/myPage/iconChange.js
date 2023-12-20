@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
+import { firebaseAuth } from "../../firebase/firebase";
 
 export default function IconChange({ closeIconChange }) {
   const [iconData, setIconData] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
+
   const closeIconChangeHandler = () => {
     closeIconChange();
   };
@@ -16,7 +19,7 @@ export default function IconChange({ closeIconChange }) {
         const data = await response.json();
         const iconArray = Object.values(data.data).slice(0, 29);
         setIconData(iconArray);
-        console.log(data);
+        // console.log(data);
       } else {
         throw new Error("데이터를 불러오는 데 실패했습니다");
       }
@@ -28,6 +31,24 @@ export default function IconChange({ closeIconChange }) {
   useEffect(() => {
     fetchIconData();
   }, []);
+
+  useEffect(() => {
+    const unsubscribe = firebaseAuth.onAuthStateChanged((user) => {
+      if (user) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    });
+
+    return () => {
+      unsubscribe(); // 컴포넌트 언마운트 시에 구독 해제
+    };
+  }, []);
+
+  if (isLoggedIn === null) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="fixed inset-0 overflow-hidden">
@@ -43,8 +64,8 @@ export default function IconChange({ closeIconChange }) {
           <div className="w-full h-full flex flex-row border-4 border-lol-gold1">
             {/* 왼쪽 프로필 */}
             <div className="w-3/12 bg-lol-dark-blue flex flex-col items-center border-r-4 border-lol-gold1">
-              <div className="mx-auto">
-                <div className="w-32 h-32 rounded-full bg-lol-dark-blue ml-8 mt-12">
+              <div className="mx-auto flex flex-col items-center">
+                <div className="w-32 h-32 rounded-full bg-lol-dark-blue mt-12">
                   <img
                     src="https://ddragon.leagueoflegends.com/cdn/13.24.1/img/profileicon/6.png"
                     alt="대충 아이콘 이미지"
@@ -52,8 +73,10 @@ export default function IconChange({ closeIconChange }) {
                   ></img>
                 </div>
                 <div className="w-full text-center mt-4 text-lol-gold">
-                  <div className="text-2xl">롤로노아 이동윤</div>
-                  <div>dongyoon7212@naver.com</div>
+                  <div className="text-2xl">
+                    {firebaseAuth.currentUser.displayName}
+                  </div>
+                  <div>{firebaseAuth.currentUser.email}</div>
                 </div>
               </div>
             </div>

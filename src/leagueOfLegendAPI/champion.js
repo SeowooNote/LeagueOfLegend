@@ -76,20 +76,22 @@ export default function Champion() {
     if (!championData) {
       return [];
     }
-    if(!searchChampion) {
+    if (!searchChampion) {
       return Object.values(championData.data);
     }
-    const filteredChampions = Object.values(championData.data).filter((champion) =>
-    champion.name.toLowerCase().includes(searchChampion.toLowerCase())
+    const filteredChampions = Object.values(championData.data).filter(
+      (champion) =>
+        champion.name.toLowerCase().includes(searchChampion.toLowerCase())
     );
     return filteredChampions;
-  }
+  };
 
 
 
   const onOutsideHandler = (e) => {
-    if(modalRef.current && !modalRef.current.contains(e.target)) setShowPopup(false);
-  }
+    if (modalRef.current && !modalRef.current.contains(e.target))
+      setShowPopup(false);
+  };
 
   useEffect(() => {
     fetchChampionData();
@@ -101,7 +103,7 @@ export default function Champion() {
       document.removeEventListener('mousedown', onOutsideHandler);
     }
     return () => {
-      document.removeEventListener('mousedown', onOutsideHandler);
+      document.removeEventListener("mousedown", onOutsideHandler);
     };
   }, [showPopup]);
 
@@ -111,14 +113,14 @@ export default function Champion() {
         <div className="flex justify-between items-center my-3">
           <h1 className="text-lol-gold text-2xl">
             리그 오브 레전드 챔피언 데이터
-          </h1> 
+          </h1>
           <input
-            type='text'
-            placeholder='챔피언 검색'
+            type="text"
+            placeholder="챔피언 검색"
             value={searchChampion}
             onChange={(e) => setSearchChampion(e.target.value)}
-            className='border-4 border-lol-gold1 p-2'
-          />            
+            className="border-4 border-lol-gold1 p-2"
+          />
         </div>
         {championData ? (
           <div className="grid grid-cols-10">
@@ -151,7 +153,10 @@ export default function Champion() {
         {showPopup ? (
           <div>
             <div className="fixed top-0 left-0 w-full h-full inset-0 bg-gray-900 opacity-75 z-40"></div>
-            <div className="fixed top-10 w-4/5 border-4 border-lol-gold1 z-50" ref={modalRef}>
+            <div
+              className="fixed top-10 w-4/5 border-4 border-lol-gold1 z-50"
+              ref={modalRef}
+            >
               <div className="relative w-full champion-box">
                 <div className="close absolute" onClick={onCloseHandler}></div>
                 <img
@@ -173,7 +178,9 @@ export default function Champion() {
           <></>
         )}
         {filterChampionData(searchChampion).length === 0 && (
-            <p className="text-lol-header-text-color text-4xl text-center m-12">검색 결과가 없습니다.</p>
+          <p className="text-lol-header-text-color text-4xl text-center m-12">
+            검색 결과가 없습니다.
+          </p>
         )}
       </div>
     </div>

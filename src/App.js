@@ -1,11 +1,10 @@
-import { Route, Routes, json } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Main from "./components/main";
 import Header from "./layouts/header";
 import Champion from "./leagueOfLegendAPI/champion";
 import Items from "./components/items";
 import MyPage from "./components/myPage/myPage";
-import { onAuthStateChanged } from "firebase/auth";
 
 function App() {
   // onAuthStateChanged((user) => {
