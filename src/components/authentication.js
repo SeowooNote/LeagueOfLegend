@@ -204,6 +204,7 @@ export default function Authentication() {
           email,
           password
         );
+        
         // 2. 가입한 user에 nickname, profileImage, backgroundImage 정보를 저장
         await updateProfile(firebaseAuth.currentUser, {
           displayName: nickname,
@@ -219,8 +220,9 @@ export default function Authentication() {
           backgroundImage: backgroundImage,
         });
 
-        alert("회원가입 완료, 이제 로그인을 해주세요.");
+        alert("회원가입 완료, 자동 로그인 되었습니다.");
         setView("sign-in");
+        navigator('/mypage');
         console.log(user);
         return user;
       } catch (e) {

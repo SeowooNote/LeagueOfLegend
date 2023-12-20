@@ -5,28 +5,16 @@ import Header from "./layouts/header";
 import Champion from "./leagueOfLegendAPI/champion";
 import Items from "./components/items";
 import MyPage from "./components/myPage/myPage";
+import { useState } from "react";
 
 function App() {
-  // onAuthStateChanged((user) => {
-  //   if(user) {
-  //     localStorage.setItem(
-  //       'user',
-  //       JSON.stringify({
-  //         uid: user.uuid,
-  //         displayName: user.nickname,
-  //         email: user.email,
-  //         // profileImage: profileImage,
-  //         // backgroundImage: backgroundImage
-  //       })
-  //     )
-  //   }
-  // })
+  const [showPopup, setShowPopup] = useState(false);
 
   return (
     <div className="App">
-      <Header />
+      <Header showPopup={showPopup} setShowPopup={setShowPopup} />
       <Routes>
-        <Route path="/" element={<Main />}></Route>
+        <Route path="/" element={<Main showPopup={showPopup} setShowPopup={setShowPopup} />}></Route>
         <Route path="/champion" element={<Champion />}></Route>
         <Route path="/items" element={<Items />}></Route>
         <Route path="/mypage" element={<MyPage />}></Route>

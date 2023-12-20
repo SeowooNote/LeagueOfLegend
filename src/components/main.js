@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import logo from "../assets/logo.png";
 import Authentication from "./authentication";
 
-export default function Main() {
-  const [showPopup, setShowPopup] = useState(false);
+export default function Main({showPopup, setShowPopup}) {
   const modalRef = useRef();
 
   const onStartHandler = () => {
