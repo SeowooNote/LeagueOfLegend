@@ -3,8 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import headerLogo from "../assets/headerLogo.png";
 import { firebaseAuth } from "../firebase/firebase";
 import { signOut } from "firebase/auth";
-import Authentication from "../components/authentication";
-export default function Header() {
+export default function Header({setShowPopup}) {
   const navigator = useNavigate();
 
   const [isLoggedIn, setIsLoggedIn] = useState(firebaseAuth.currentUser);
@@ -20,8 +19,7 @@ export default function Header() {
   }
 
   const onSginInHandler = () => {
-    alert('로그인이 필요합니다.');
-    return(<Authentication/>)
+    setShowPopup(true);
   }
 
   const onProfileHandler = () => {
