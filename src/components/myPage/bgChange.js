@@ -1,9 +1,34 @@
 import React, { useState, useEffect } from "react";
+import { doc, updateDoc } from "firebase/firestore";
+import { firebaseDataBase } from "../../firebase/firebase";
 
-export default function BgChange({ closeBgChange }) {
+export default function BgChange({ closeBgChange, setBackgroundImage }) {
   const [bgData, setBgData] = useState([]);
+
   const closeBgChangeHandler = () => {
     closeBgChange();
+  };
+
+  const updateBackgroundImageOnServer = async (userId, newBackgroundImage) => {
+    const userDocRef = doc(firebaseDataBase, "users", userId);
+
+    try {
+      await updateDoc(userDocRef, {
+        backgroundImage: newBackgroundImage,
+      });
+      console.log("Background image updated on the server");
+    } catch (error) {
+      console.error("Error updating background image on the server:", error);
+    }
+  };
+
+  const handleBgClick = async (selectedBackground) => {
+    // 클릭한 배경화면 정보를 사용하여 setBackgroundImage 값을 업데이트
+    setBackgroundImage(selectedBackground);
+
+    // Firestore에 업데이트 요청
+    const userId = "FZaC6K6x3Hh1wiqUV9hZ"; // 실제로는 동적으로 userId를 설정해야 합니다.
+    await updateBackgroundImageOnServer(userId, selectedBackground);
   };
 
   const fetchBgData = async () => {
@@ -53,12 +78,17 @@ export default function BgChange({ closeBgChange }) {
             <div className="w-full h-5/6 overflow-y-scroll p-4">
               <div className="flex flex-wrap">
                 {bgData.map((champion) => (
-                  <img
+                  <div
                     key={champion.id}
-                    src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champion.id}_0.jpg`}
-                    alt={`${champion.name} Splash`}
+                    onClick={() => handleBgClick(champion.id)} // 수정된 부분
                     className="w-1/4 transition hover:scale-110"
-                  />
+                  >
+                    <img
+                      src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champion.id}_0.jpg`}
+                      alt={`${champion.name} Splash`}
+                      className="w-full h-full object-cover rounded"
+                    />
+                  </div>
                 ))}
               </div>
             </div>
