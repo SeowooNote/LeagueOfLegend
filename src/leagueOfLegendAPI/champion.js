@@ -1,4 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
+import Comment from "../components/comment/comment";
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
+import { firebaseDataBase } from "../firebase/firebase";
 
 export default function Champion() {
   const [championData, setChampionData] = useState(null);
@@ -28,7 +31,6 @@ export default function Champion() {
       const response = await fetch(
         "https://ddragon.leagueoflegends.com/cdn/13.24.1/data/ko_KR/champion.json"
       );
-
       if (response.ok) {
         const data = await response.json();
         setChampionData(data);
@@ -39,6 +41,36 @@ export default function Champion() {
       console.log("Error fetching champion data: ", error);
     }
   };
+
+  const commentsToChampionDocument = async () => {
+    try {
+      const response = await fetch(
+        "https://ddragon.leagueoflegends.com/cdn/13.24.1/data/ko_KR/champion.json"
+      );
+      if(response.ok) {
+        const data = await response.json();
+        const championsIds = Object.keys(data.data).map((key) => data.data[key].id);
+        console.log(championsIds);
+        // for(const key in championsIds) {
+        //   const ref = doc(collection(firebaseDataBase, 'comments', 'champions'));
+        //   await addDoc(ref, {
+        //     championName : championsIds[key]
+        //   })
+        // }
+        for(const key in championsIds) {
+          // console.log(championsIds[key]);
+          
+        }
+      } else {
+        throw new Error("Failed to fetch data");
+      }
+    } catch (error) {
+      console.log("Error fetching champion data: ", error);
+    }
+
+    
+  }
+  
 
   const filterChampionData = (searchChampion) => {
     if (!championData) {
@@ -53,12 +85,16 @@ export default function Champion() {
     return filteredChampions;
   }
 
+
+
   const onOutsideHandler = (e) => {
     if(modalRef.current && !modalRef.current.contains(e.target)) setShowPopup(false);
   }
 
   useEffect(() => {
     fetchChampionData();
+    // commentsToChampionDocument();
+    commentsToChampionDocument();
     if(showPopup){
       document.addEventListener('mousedown', onOutsideHandler);
     }else{
@@ -113,7 +149,6 @@ export default function Champion() {
           <p>Loading champion data...</p>
         )}
         {showPopup ? (
-          
           <div>
             <div className="fixed top-0 left-0 w-full h-full inset-0 bg-gray-900 opacity-75 z-40"></div>
             <div className="fixed top-10 w-4/5 border-4 border-lol-gold1 z-50" ref={modalRef}>
@@ -131,6 +166,7 @@ export default function Champion() {
                   {championDescription}
                 </div>
               </div>
+              {/* <Comment/> */}
             </div>
           </div>
         ) : (
