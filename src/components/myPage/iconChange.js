@@ -1,12 +1,40 @@
 import { useEffect, useState } from "react";
 import { firebaseAuth } from "../../firebase/firebase";
+import { doc, updateDoc } from "firebase/firestore";
+import { firebaseDataBase } from "../../firebase/firebase";
 
-export default function IconChange({ closeIconChange }) {
+export default function IconChange({
+  closeIconChange,
+  profileImage,
+  setProfileImage,
+}) {
   const [iconData, setIconData] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(null);
 
   const closeIconChangeHandler = () => {
     closeIconChange();
+  };
+
+  const updateProfileImageOnServer = async (userId, newProfileImage) => {
+    const userDocRef = doc(firebaseDataBase, "users", userId);
+
+    try {
+      await updateDoc(userDocRef, {
+        profileImage: newProfileImage,
+      });
+      console.log("Profile image updated on the server");
+    } catch (error) {
+      console.error("Error updating profile image on the server:", error);
+    }
+  };
+
+  const handleIconClick = async (selectedIconId) => {
+    // 클릭한 아이콘의 id를 사용하여 profileImage 값을 업데이트
+    setProfileImage(selectedIconId);
+
+    // Firestore에 업데이트 요청
+    const userId = "FZaC6K6x3Hh1wiqUV9hZ"; // 실제로는 동적으로 userId를 설정해야 합니다.
+    await updateProfileImageOnServer(userId, selectedIconId);
   };
 
   const fetchIconData = async () => {
@@ -67,7 +95,7 @@ export default function IconChange({ closeIconChange }) {
               <div className="mx-auto flex flex-col items-center">
                 <div className="w-32 h-32 rounded-full bg-lol-dark-blue mt-12">
                   <img
-                    src="https://ddragon.leagueoflegends.com/cdn/13.24.1/img/profileicon/6.png"
+                    src={`https://ddragon.leagueoflegends.com/cdn/13.24.1/img/profileicon/${profileImage}.png`}
                     alt="대충 아이콘 이미지"
                     className="rounded-full border-2 border-lol-gold1"
                   ></img>
@@ -98,6 +126,7 @@ export default function IconChange({ closeIconChange }) {
                     <div
                       key={index}
                       className="w-1/8 p-2 transition hover:scale-125"
+                      onClick={() => handleIconClick(icon.id)}
                     >
                       <img
                         src={`https://ddragon.leagueoflegends.com/cdn/13.24.1/img/profileicon/${icon.id}.png`}
