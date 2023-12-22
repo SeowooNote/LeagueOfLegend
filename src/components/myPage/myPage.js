@@ -15,6 +15,8 @@ export default function MyPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [backgroundImage, setBackgroundImage] = useState(null);
   const [profileImage, setProfileImage] = useState(null);
+  const [userNickName, setUserNickName] = useState(null);
+  const [userEmail, setUserEmail] = useState(null);
 
   const onLikeListHandler = () => {
     setLikeList(true);
@@ -57,8 +59,12 @@ export default function MyPage() {
               const userData = docSnap.data();
               const backgroundImage = userData.backgroundImage;
               const profileImage = userData.profileImage;
+              const userNickName = userData.nickname;
+              const userEmail = userData.email;
               setProfileImage(profileImage);
               setBackgroundImage(backgroundImage);
+              setUserNickName(userNickName);
+              setUserEmail(userEmail);
             } else {
               console.log("No such document!");
             }
@@ -72,6 +78,8 @@ export default function MyPage() {
     };
 
     const unsubscribe = firebaseAuth.onAuthStateChanged(handleAuthStateChanged);
+
+    console.log(firebaseAuth.currentUser.uid);
 
     return () => {
       unsubscribe();
@@ -112,10 +120,10 @@ export default function MyPage() {
               ></img>
             </div>
             <div className="w-auto text-lol-gold1 text-3xl absolute top-12 left-44">
-              {firebaseAuth.currentUser.displayName}
+              {userNickName}
             </div>
             <div className="text-lol-gold text-lg absolute top-20 left-44">
-              {firebaseAuth.currentUser.email}
+              {userEmail}
             </div>
           </div>
           <div className="w-full h-1/6 bg-lol-dark-blue bg-opacity-50 flex border-y-4 border-lol-gold1">
