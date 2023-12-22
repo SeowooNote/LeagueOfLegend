@@ -52,20 +52,23 @@ export default function Authentication() {
 
     const onLoginHandler = async () => {
       try {
-        setPersistence(firebaseAuth, browserSessionPersistence).then(
+        await setPersistence(firebaseAuth, browserSessionPersistence).then(
           async () => {
             const currentUserInfo = await signInWithEmailAndPassword(
               firebaseAuth,
               email,
               password
             );
-            return currentUserInfo;
+            if(currentUserInfo) {
+              alert("로그인 성공");
+              navigator("/mypage");
+              return currentUserInfo;
+            } else return;
           }
         );
-        alert("로그인 성공");
-        navigator("/mypage");
       } catch (e) {
         alert("로그인 실패");
+        navigator("/");
       }
     };
 
@@ -210,7 +213,6 @@ export default function Authentication() {
         //   profileImage,
         //   backgroundImage,
         // });
-
         alert("회원가입 완료, 자동 로그인 되었습니다.");
         setView("sign-in");
         navigator('/mypage');
