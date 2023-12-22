@@ -3,9 +3,8 @@ import {
   createUserWithEmailAndPassword,
   setPersistence,
   signInWithEmailAndPassword,
-  updateProfile,
 } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   firebaseAuth,
   firebaseAuthGithub,
@@ -13,7 +12,7 @@ import {
   firebaseDataBase,
 } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, setDoc, doc } from "firebase/firestore";
 
 import googleLogo from "../assets/googleLogo.png";
 import githubLogo from "../assets/githubLogo.png";
@@ -206,29 +205,37 @@ export default function Authentication() {
         );
         
         // 2. 가입한 user에 nickname, profileImage, backgroundImage 정보를 저장
-        await updateProfile(firebaseAuth.currentUser, {
-          displayName: nickname,
-          profileImage,
-          backgroundImage,
-        });
-
-        // 회원가입한 user의 정보 firestore users 컬렉션에 저장
-        addDoc(collection(firebaseDataBase, "users"), {
-          email: email,
-          nickname: nickname,
-          profileImage: profileImage,
-          backgroundImage: backgroundImage,
-        });
+        // await updateProfile(firebaseAuth.currentUser, {
+        //   displayName: nickname,
+        //   profileImage,
+        //   backgroundImage,
+        // });
 
         alert("회원가입 완료, 자동 로그인 되었습니다.");
         setView("sign-in");
         navigator('/mypage');
         console.log(user);
+        saveUserData();
         return user;
       } catch (e) {
         alert("회원가입 실패");
       }
+      
     };
+
+    const saveUserData = async () => {
+      try {
+        // 회원가입한 user의 정보 firestore users 컬렉션에 저장
+        await setDoc(doc(collection(firebaseDataBase, "users"), firebaseAuth.currentUser.uid), {
+          email: email,
+          nickname: nickname,
+          profileImage: profileImage,
+          backgroundImage: backgroundImage,
+        });
+        } catch (error) {
+          console.error("Error saving user data: ", error);
+        }
+      };
 
     return (
       <div className="w-2/5 p-4 h-full">
