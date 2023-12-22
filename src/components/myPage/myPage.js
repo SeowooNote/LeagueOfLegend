@@ -5,7 +5,7 @@ import settings from "../../assets/settings.png";
 import IconChange from "./iconChange";
 import BgChange from "./bgChange";
 import { firebaseAuth, firebaseDataBase } from "../../firebase/firebase";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 
 export default function MyPage() {
   const [likeList, setLikeList] = useState(true);
@@ -15,8 +15,6 @@ export default function MyPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [backgroundImage, setBackgroundImage] = useState(null);
   const [profileImage, setProfileImage] = useState(null);
-  const [isEditingNickname, setIsEditingNickname] = useState(false);
-  const [newNickname, setNewNickname] = useState("");
 
   const onLikeListHandler = () => {
     setLikeList(true);
@@ -42,24 +40,6 @@ export default function MyPage() {
 
   const toggleBgChange = () => {
     setBgChangeShow(!bgChangeShow);
-  };
-
-  const onNicknameClick = () => {
-    setIsEditingNickname(true);
-    setNewNickname(firebaseAuth.currentUser.displayName);
-  };
-
-  const onSaveNickname = async () => {
-    try {
-      const userDocRef = doc(firebaseDataBase, "users", "FZaC6K6x3Hh1wiqUV9hZ");
-      await updateDoc(userDocRef, { nickname: newNickname });
-
-      firebaseAuth.currentUser.displayName = newNickname;
-
-      setIsEditingNickname(false);
-    } catch (error) {
-      console.error("Error updating nickname:", error);
-    }
   };
 
   useEffect(() => {
@@ -132,26 +112,7 @@ export default function MyPage() {
               ></img>
             </div>
             <div className="w-auto text-lol-gold1 text-3xl absolute top-12 left-44">
-              {isEditingNickname ? (
-                <>
-                  <input
-                    type="text"
-                    value={newNickname}
-                    onChange={(e) => setNewNickname(e.target.value)}
-                  />
-                  <button onClick={onSaveNickname}>Save</button>
-                </>
-              ) : (
-                <>
-                  {firebaseAuth.currentUser.displayName}
-                  <img
-                    src={settings}
-                    alt="edit"
-                    className="w-3 h-3 cursor-pointer absolute right-0 top-0"
-                    onClick={onNicknameClick}
-                  />
-                </>
-              )}
+              {firebaseAuth.currentUser.displayName}
             </div>
             <div className="text-lol-gold text-lg absolute top-20 left-44">
               {firebaseAuth.currentUser.email}
