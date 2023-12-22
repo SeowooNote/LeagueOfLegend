@@ -72,6 +72,11 @@ body {
 }
 
 /* popUp 창 */
+.champion-box{
+  height: 674.63px;
+  overflow: scroll;
+}
+
 .champion-name {
   position: absolute;
   top: 4px;
@@ -81,7 +86,17 @@ body {
 .champion-description {
   position: absolute;
   left: 4px;
-  bottom: 4px;
+  bottom: 50px;
+}
+
+.champion-icon {
+  width: 50px;
+  height: 50px;
+  transform: rotate(-90deg);
+  position: absolute;
+  left: 50%;
+  margin-left: -25px;
+  bottom: 8px;
 }
 
 .champion-image {
@@ -109,4 +124,3 @@ body {
 .drop-down:hover .drop-down-content{
   display: block;
 }
-

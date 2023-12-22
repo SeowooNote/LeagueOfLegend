@@ -10,9 +10,7 @@ export default function Comment() {
     }
 
     const onCommentSubmitHandler = async() => {
-        addDoc(collection(firebaseDataBase, "comments"), {
 
-        })
     }
 
     const onKeyDownHandler = () => {
@@ -25,7 +23,7 @@ export default function Comment() {
             <div className='flex items-center text-lol-gold p-4 gap-4'>
                 <div className='w-14 h-14 rounded-full bg-white'></div>
                 <div className=''>
-                    <div>{firebaseAuth.currentUser.displayName}</div>
+                    <div>{}</div>
                     <div>date</div>
                 </div>
                 <div className=''>contents</div>

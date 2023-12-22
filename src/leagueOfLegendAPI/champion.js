@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Comment from "../components/comment/comment";
 import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
 import { firebaseDataBase } from "../firebase/firebase";
+import downIcon from "../assets/downIcon.png"
 
 export default function Champion() {
   const [championData, setChampionData] = useState(null);
@@ -51,15 +52,12 @@ export default function Champion() {
         const data = await response.json();
         const championsIds = Object.keys(data.data).map((key) => data.data[key].id);
         console.log(championsIds);
-        // for(const key in championsIds) {
-        //   const ref = doc(collection(firebaseDataBase, 'comments', 'champions'));
-        //   await addDoc(ref, {
-        //     championName : championsIds[key]
-        //   })
-        // }
-        for(const key in championsIds) {
-          // console.log(championsIds[key]);
-          
+
+        for(const championId of championsIds) {
+          const ref = doc(collection(firebaseDataBase, 'comments'), championId);
+          await setDoc(ref, {
+            championName: championId
+          })
         }
       } else {
         throw new Error("Failed to fetch data");
@@ -95,7 +93,6 @@ export default function Champion() {
 
   useEffect(() => {
     fetchChampionData();
-    // commentsToChampionDocument();
     commentsToChampionDocument();
     if(showPopup){
       document.addEventListener('mousedown', onOutsideHandler);
@@ -154,10 +151,10 @@ export default function Champion() {
           <div>
             <div className="fixed top-0 left-0 w-full h-full inset-0 bg-gray-900 opacity-75 z-40"></div>
             <div
-              className="fixed top-10 w-4/5 border-4 border-lol-gold1 z-50"
+              className="fixed top-10 w-4/5 border-4 border-lol-gold1 z-50 champion-box"
               ref={modalRef}
             >
-              <div className="relative w-full champion-box">
+              <div className="relative w-full">
                 <div className="close absolute" onClick={onCloseHandler}></div>
                 <img
                   src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championId}_0.jpg`}
@@ -170,8 +167,12 @@ export default function Champion() {
                 <div className="text-2xl text-lol-gold champion-description">
                   {championDescription}
                 </div>
+                <img
+                  src={downIcon}
+                  className="champion-icon"
+                />
               </div>
-              {/* <Comment/> */}
+              <Comment/>
             </div>
           </div>
         ) : (
