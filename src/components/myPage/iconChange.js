@@ -33,7 +33,7 @@ export default function IconChange({
     setProfileImage(selectedIconId);
 
     // Firestore에 업데이트 요청
-    const userId = "FZaC6K6x3Hh1wiqUV9hZ"; // 실제로는 동적으로 userId를 설정해야 합니다.
+    const userId = firebaseAuth.currentUser.uid; // 실제로는 동적으로 userId를 설정해야 합니다.
     await updateProfileImageOnServer(userId, selectedIconId);
   };
 

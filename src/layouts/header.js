@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import headerLogo from "../assets/headerLogo.png";
-import { firebaseAuth } from "../firebase/firebase";
+import { firebaseAuth, firebaseDataBase } from "../firebase/firebase";
 import { signOut } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 
 export default function Header({ setShowPopup }) {
   const navigator = useNavigate();
-
+  const [profileImage, setProfileImage] = useState(null);
+  const [userNickName, setUserNickName] = useState(null);
+  const [userEmail, setUserEmail] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(firebaseAuth.currentUser);
 
   const onSignOutHandler = () => {
@@ -28,14 +31,38 @@ export default function Header({ setShowPopup }) {
   };
 
   useEffect(() => {
-    firebaseAuth.onAuthStateChanged((user) => {
+    const handleAuthStateChanged = (user) => {
       if (user) {
+        const userUID = firebaseAuth.currentUser.uid;
         setIsLoggedIn(true);
+        const userDocRef = doc(firebaseDataBase, "users", userUID);
+        getDoc(userDocRef)
+          .then((docSnap) => {
+            if (docSnap.exists()) {
+              const userData = docSnap.data();
+              const profileImage = userData.profileImage;
+              const userNickName = userData.nickname;
+              const userEmail = userData.email;
+              setProfileImage(profileImage);
+              setUserNickName(userNickName);
+              setUserEmail(userEmail);
+            } else {
+              console.log("No such document!");
+            }
+          })
+          .catch((error) => {
+            console.error("Error getting document:", error);
+          });
       } else {
         setIsLoggedIn(false);
       }
-    });
-  }, []);
+    };
+
+    const unsubscribe = firebaseAuth.onAuthStateChanged(handleAuthStateChanged);
+    return () => {
+      unsubscribe();
+    };
+  });
 
   return (
     <div className="flex justify-center bg-lol-header-black text-lol-header-text-color">
@@ -62,14 +89,14 @@ export default function Header({ setShowPopup }) {
             >
               <div className="w-14 h-14 rounded-full">
                 <img
-                  src={`https://ddragon.leagueoflegends.com/cdn/13.24.1/img/profileicon/23.png`}
+                  src={`https://ddragon.leagueoflegends.com/cdn/13.24.1/img/profileicon/${profileImage}.png`}
                   alt="대충 아이콘 이미지"
                   className="rounded-full border-2 border-lol-gold1"
                 ></img>
               </div>
               <div>
-                <div>{firebaseAuth.currentUser.displayName}</div>
-                <div>{firebaseAuth.currentUser.email}</div>
+                <div>{userNickName}</div>
+                <div>{userEmail}</div>
               </div>
             </div>
             <div

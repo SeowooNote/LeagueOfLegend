@@ -5,7 +5,7 @@ import settings from "../../assets/settings.png";
 import IconChange from "./iconChange";
 import BgChange from "./bgChange";
 import { firebaseAuth, firebaseDataBase } from "../../firebase/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 export default function MyPage() {
   const [likeList, setLikeList] = useState(true);
@@ -17,6 +17,8 @@ export default function MyPage() {
   const [profileImage, setProfileImage] = useState(null);
   const [userNickName, setUserNickName] = useState(null);
   const [userEmail, setUserEmail] = useState(null);
+  const [isEditingNickname, setIsEditingNickname] = useState(false);
+  const [newNickname, setNewNickname] = useState(userNickName);
 
   const onLikeListHandler = () => {
     setLikeList(true);
@@ -44,15 +46,34 @@ export default function MyPage() {
     setBgChangeShow(!bgChangeShow);
   };
 
+  const startEditingNickname = () => {
+    setIsEditingNickname(true);
+  };
+
+  const saveNickname = async () => {
+    try {
+      const userUID = firebaseAuth.currentUser.uid;
+      const userDocRef = doc(firebaseDataBase, "users", userUID);
+
+      // Firestore의 nickname 필드 업데이트
+      await updateDoc(userDocRef, {
+        nickname: newNickname,
+      });
+
+      // state 업데이트
+      setUserNickName(newNickname);
+      setIsEditingNickname(false);
+    } catch (error) {
+      console.error("Error updating nickname:", error);
+    }
+  };
+
   useEffect(() => {
     const handleAuthStateChanged = (user) => {
       if (user) {
+        const userUID = firebaseAuth.currentUser.uid;
         setIsLoggedIn(true);
-        const userDocRef = doc(
-          firebaseDataBase,
-          "users",
-          "FZaC6K6x3Hh1wiqUV9hZ"
-        );
+        const userDocRef = doc(firebaseDataBase, "users", userUID);
         getDoc(userDocRef)
           .then((docSnap) => {
             if (docSnap.exists()) {
@@ -78,16 +99,13 @@ export default function MyPage() {
     };
 
     const unsubscribe = firebaseAuth.onAuthStateChanged(handleAuthStateChanged);
-
-    console.log(firebaseAuth.currentUser.uid);
-
     return () => {
       unsubscribe();
     };
   }, []);
 
   if (isLoggedIn === null || !isLoggedIn) {
-    return <div>Loading...</div>;
+    return <div className="w-full h-full bg-lol-dark-blue"></div>;
   }
 
   return (
@@ -120,7 +138,29 @@ export default function MyPage() {
               ></img>
             </div>
             <div className="w-auto text-lol-gold1 text-3xl absolute top-12 left-44">
-              {userNickName}
+              {isEditingNickname ? (
+                <>
+                  <input
+                    type="text"
+                    value={newNickname}
+                    onChange={(e) => setNewNickname(e.target.value)}
+                    className="border-b-2 border-lol-gold1 bg-lol-dark-blue text-lol-gold1 text-3xl"
+                  />
+                  <button onClick={saveNickname} className="text-lol-gold ml-2">
+                    Save
+                  </button>
+                </>
+              ) : (
+                <>
+                  {userNickName}
+                  <img
+                    src={settings}
+                    alt="edit"
+                    className="w-4 h-4 absolute right-0 top-0 cursor-pointer"
+                    onClick={startEditingNickname}
+                  />
+                </>
+              )}
             </div>
             <div className="text-lol-gold text-lg absolute top-20 left-44">
               {userEmail}
