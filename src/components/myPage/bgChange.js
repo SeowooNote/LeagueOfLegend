@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { doc, updateDoc } from "firebase/firestore";
-import { firebaseDataBase } from "../../firebase/firebase";
+import { firebaseAuth, firebaseDataBase } from "../../firebase/firebase";
 
 export default function BgChange({ closeBgChange, setBackgroundImage }) {
   const [bgData, setBgData] = useState([]);
@@ -27,7 +27,7 @@ export default function BgChange({ closeBgChange, setBackgroundImage }) {
     setBackgroundImage(selectedBackground);
 
     // Firestore에 업데이트 요청
-    const userId = "FZaC6K6x3Hh1wiqUV9hZ"; // 실제로는 동적으로 userId를 설정해야 합니다.
+    const userId = firebaseAuth.currentUser.uid; // 실제로는 동적으로 userId를 설정해야 합니다.
     await updateBackgroundImageOnServer(userId, selectedBackground);
   };
 
