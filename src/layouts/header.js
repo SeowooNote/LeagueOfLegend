@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import headerLogo from "../assets/headerLogo.png";
 import { firebaseAuth } from "../firebase/firebase";
 import { signOut } from "firebase/auth";
+
 export default function Header({ setShowPopup }) {
   const navigator = useNavigate();
 
@@ -57,9 +58,15 @@ export default function Header({ setShowPopup }) {
           <div className="realtive drop-down">
             <div
               onClick={onProfileHandler}
-              className=" flex gap-3 items-center text-lol-gold hover:text-lol-gold1 cursor-pointer drop-down"
+              className="flex gap-3 items-center text-lol-gold hover:text-lol-gold1 cursor-pointer drop-down"
             >
-              <div className="w-14 h-14 rounded-full bg-white"></div>
+              <div className="w-14 h-14 rounded-full">
+                <img
+                  src={`https://ddragon.leagueoflegends.com/cdn/13.24.1/img/profileicon/23.png`}
+                  alt="대충 아이콘 이미지"
+                  className="rounded-full border-2 border-lol-gold1"
+                ></img>
+              </div>
               <div>
                 <div>{firebaseAuth.currentUser.displayName}</div>
                 <div>{firebaseAuth.currentUser.email}</div>
