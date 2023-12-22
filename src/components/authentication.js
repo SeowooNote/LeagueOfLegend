@@ -4,7 +4,7 @@ import {
   setPersistence,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   firebaseAuth,
   firebaseAuthGithub,
@@ -172,9 +172,9 @@ export default function Authentication() {
     // nickname(NN)
     const [nickname, setNickname] = useState("");
     // profileImage(PI)
-    const [profileImage] = useState(null);
+    const [profileImage] = useState("23");
     // backgroundImage(BI)
-    const [backgroundImage] = useState(null);
+    const [backgroundImage] = useState("Garen");
 
     const onEmailHandler = (e) => {
       setEmail(e.currentTarget.value);
