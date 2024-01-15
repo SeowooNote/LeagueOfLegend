@@ -4,6 +4,7 @@ import { addDoc, collection, doc, onSnapshot, orderBy, query, serverTimestamp } 
 
 export default function Comment({ championId }) {
     const [comment, setComment] = useState("");
+    const [comments, setComments] = useState([]);
 
     const onCommentHandler = (e) => {
         setComment(e.target.value);
@@ -29,17 +30,51 @@ export default function Comment({ championId }) {
         // }
     }
 
+    useEffect(() => {
+        const fetchComments = async () => {
+            try {
+                const commentsQuery = query(
+                    collection(firebaseDataBase, 'comments', championId, 'commentList'),
+                    orderBy('createAt', 'desc') // 수정: 'createAt'으로 변경
+                );
+
+                const unsubscribe = onSnapshot(commentsQuery, (snapshot) => {
+                    const commentsData = snapshot.docs.map((doc) => ({
+                        id: doc.id,
+                        ...doc.data()
+                    }));
+                    setComments(commentsData);
+                });
+
+                return () => unsubscribe();
+            } catch (error) {
+                console.error('Error fetching comments:', error);
+            }
+        }
+
+        fetchComments();
+    }, [championId]);
+
     return (
         <div>
-            <div className='flex items-center text-lol-gold p-4 gap-4'>
+            {/* <div className='flex items-center text-lol-gold p-4 gap-4'>
                 <div className='w-14 h-14 rounded-full bg-white'></div>
                 <div className=''>
                     <div>{}</div>
                     <div>date</div>
                 </div>
                 <div className=''>contents</div>
-            </div>
-            
+            </div> */}
+
+            {comments.length === 0 ? (
+                <p>댓글이 없습니다.</p>
+            ) : (
+                comments.map((comment) => (
+                    <div key={comment.id}>
+                        <p>{comment.content}</p>
+                    </div>
+                ))
+            )}
 
             <div>
                 <div className='flex justify-between items-center text-lol-text-color1'>
