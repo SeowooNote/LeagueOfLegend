@@ -51,6 +51,16 @@ export default function MyPage() {
   };
 
   const saveNickname = async () => {
+    if (newNickname === "" || null) {
+      alert("닉네임을 입력하세요.");
+      return;
+    }
+
+    if (newNickname === userNickName) {
+      alert("닉네임을 다시 입력해주세요.");
+      return;
+    }
+
     try {
       const userUID = firebaseAuth.currentUser.uid;
       const userDocRef = doc(firebaseDataBase, "users", userUID);
@@ -66,6 +76,9 @@ export default function MyPage() {
     } catch (error) {
       console.error("Error updating nickname:", error);
     }
+
+    alert("닉네임이 변경되었습니다.");
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -127,7 +140,7 @@ export default function MyPage() {
             <div className="h-28 w-28 rounded-full absolute top-2.5 left-9">
               <img
                 src={`https://ddragon.leagueoflegends.com/cdn/13.24.1/img/profileicon/${profileImage}.png`}
-                alt="대충 아이콘 이미지"
+                alt="아이콘 이미지"
                 className="rounded-full border-2 border-lol-gold1"
               ></img>
               <img
@@ -142,12 +155,15 @@ export default function MyPage() {
                 <>
                   <input
                     type="text"
-                    value={newNickname}
+                    value={newNickname || ""}
                     onChange={(e) => setNewNickname(e.target.value)}
-                    className="border-b-2 border-lol-gold1 bg-lol-dark-blue text-lol-gold1 text-3xl"
+                    className="h-8 border-2 border-lol-gold1 bg-lol-dark-blue text-lol-gold1 text-3xl"
                   />
-                  <button onClick={saveNickname} className="text-lol-gold ml-2">
-                    Save
+                  <button
+                    onClick={saveNickname}
+                    className="text-lol-gold ml-2 text-2xl"
+                  >
+                    변경
                   </button>
                 </>
               ) : (

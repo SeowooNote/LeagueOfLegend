@@ -16,7 +16,6 @@ export default function BgChange({ closeBgChange, setBackgroundImage }) {
       await updateDoc(userDocRef, {
         backgroundImage: newBackgroundImage,
       });
-      console.log("Background image updated on the server");
     } catch (error) {
       console.error("Error updating background image on the server:", error);
     }
