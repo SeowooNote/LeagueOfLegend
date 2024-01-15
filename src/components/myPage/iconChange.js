@@ -13,6 +13,7 @@ export default function IconChange({
 
   const closeIconChangeHandler = () => {
     closeIconChange();
+    window.location.reload();
   };
 
   const updateProfileImageOnServer = async (userId, newProfileImage) => {
@@ -22,7 +23,6 @@ export default function IconChange({
       await updateDoc(userDocRef, {
         profileImage: newProfileImage,
       });
-      console.log("Profile image updated on the server");
     } catch (error) {
       console.error("Error updating profile image on the server:", error);
     }
