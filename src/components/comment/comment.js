@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { firebaseAuth, firebaseDataBase } from '../../firebase/firebase'
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, doc, onSnapshot, orderBy, query, serverTimestamp } from 'firebase/firestore';
 
-export default function Comment() {
+export default function Comment({ championId }) {
     const [comment, setComment] = useState("");
 
     const onCommentHandler = (e) => {
@@ -10,12 +10,23 @@ export default function Comment() {
     }
 
     const onCommentSubmitHandler = async() => {
+        if(comment.trim() === '') return;
 
+        const championCommentsCollection = collection(firebaseDataBase, 'comments', championId, 'commentList');
+
+        await addDoc(championCommentsCollection, {
+            content: comment,
+            userId: firebaseAuth.currentUser.uid,
+            createAt: new Date()
+        });
+
+        setComment('');
     }
 
-    const onKeyDownHandler = () => {
-        // if(e.key !== 'Enter') return;
-        // onCommentSubmitHandler();
+    const onKeyDownHandler = (e) => {
+        // if(e.key !== 'Enter') {
+        //     onCommentSubmitHandler();
+        // }
     }
 
     return (
@@ -28,10 +39,12 @@ export default function Comment() {
                 </div>
                 <div className=''>contents</div>
             </div>
+            
+
             <div>
                 <div className='flex justify-between items-center text-lol-text-color1'>
                     <input id='comment' name='comment' value={comment} type='text' autoComplete='comment' required onChange={onCommentHandler} onKeyDown={onKeyDownHandler} className='w-4/5 bg-lol-dark-blue' placeholder='해당 챔피언에 대한 의견을 남겨주세요.'/>
-                    <button className='w-1/5 bg-lol-dark-blue text-lol-gold hover:text-lol-gold1 hover:bg-lol-sky-blue-hover'>댓글 작성</button>
+                    <button onClick={onCommentSubmitHandler} className='w-1/5 bg-lol-dark-blue text-lol-gold hover:text-lol-gold1 hover:bg-lol-sky-blue-hover'>댓글 작성</button>
                 </div>
             </div>
         </div>

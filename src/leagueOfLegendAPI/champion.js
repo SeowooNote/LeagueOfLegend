@@ -69,7 +69,6 @@ export default function Champion() {
     
   }
   
-
   const filterChampionData = (searchChampion) => {
     if (!championData) {
       return [];
@@ -83,8 +82,6 @@ export default function Champion() {
     );
     return filteredChampions;
   };
-
-
 
   const onOutsideHandler = (e) => {
     if (modalRef.current && !modalRef.current.contains(e.target))
@@ -172,7 +169,7 @@ export default function Champion() {
                   className="champion-icon"
                 />
               </div>
-              <Comment/>
+              <Comment championId={championId}/>
             </div>
           </div>
         ) : (
