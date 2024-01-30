@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import goldImg from "../assets/goldImg.webp";
+import goldImg from "../assets/goldimg.webp";
 import ItemCarts from "./itemCarts";
 
 export default function Items() {

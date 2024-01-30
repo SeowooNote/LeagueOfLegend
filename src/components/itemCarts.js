@@ -1,5 +1,5 @@
 import React from "react";
-import goldImg from "../assets/goldImg.webp";
+import goldImg from "../assets/goldimg.webp";
 
 export default function ItemCarts({ closeCart, cartItems, removeFromCart }) {
   const handleCloseCart = () => {
