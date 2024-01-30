@@ -78,8 +78,8 @@ export default function Comment({ championId }) {
 
             <div>
                 <div className='flex justify-between items-center text-lol-text-color1'>
-                    <input id='comment' name='comment' value={comment} type='text' autoComplete='comment' required onChange={onCommentHandler} onKeyDown={onKeyDownHandler} className='w-4/5 bg-lol-dark-blue' placeholder='해당 챔피언에 대한 의견을 남겨주세요.'/>
-                    <button onClick={onCommentSubmitHandler} className='w-1/5 bg-lol-dark-blue text-lol-gold hover:text-lol-gold1 hover:bg-lol-sky-blue-hover'>댓글 작성</button>
+                    <input id='comment' name='comment' value={comment} type='text' autoComplete='comment' required onChange={onCommentHandler} onKeyDown={onKeyDownHandler} className='w-4/5 bg-lol-dark-blue h-14 pl-2.5' placeholder='해당 챔피언에 대한 의견을 남겨주세요.'/>
+                    <button onClick={onCommentSubmitHandler} className='w-1/5 bg-lol-dark-blue text-lol-gold hover:text-lol-gold1 hover:bg-lol-sky-blue-hover h-14'>댓글 작성</button>
                 </div>
             </div>
         </div>
