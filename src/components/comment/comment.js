@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { firebaseAuth, firebaseDataBase } from '../../firebase/firebase'
-import { addDoc, collection, doc, onSnapshot, orderBy, query, serverTimestamp } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
+import { firebaseAuth, firebaseDataBase } from '../../firebase/firebase';
+import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp, getDoc, doc } from 'firebase/firestore';
 
 export default function Comment({ championId }) {
     const [comment, setComment] = useState("");
@@ -10,15 +10,15 @@ export default function Comment({ championId }) {
         setComment(e.target.value);
     }
 
-    const onCommentSubmitHandler = async() => {
-        if(comment.trim() === '') return;
+    const onCommentSubmitHandler = async () => {
+        if (comment.trim() === '') return;
 
         const championCommentsCollection = collection(firebaseDataBase, 'comments', championId, 'commentList');
 
         await addDoc(championCommentsCollection, {
             content: comment,
             userId: firebaseAuth.currentUser.uid,
-            createAt: new Date()
+            createAt: serverTimestamp()
         });
 
         setComment('');
@@ -35,14 +35,29 @@ export default function Comment({ championId }) {
             try {
                 const commentsQuery = query(
                     collection(firebaseDataBase, 'comments', championId, 'commentList'),
-                    orderBy('createAt', 'desc') // 수정: 'createAt'으로 변경
+                    orderBy('createAt', 'desc')
                 );
 
-                const unsubscribe = onSnapshot(commentsQuery, (snapshot) => {
-                    const commentsData = snapshot.docs.map((doc) => ({
-                        id: doc.id,
-                        ...doc.data()
-                    }));
+                const unsubscribe = onSnapshot(commentsQuery, async (snapshot) => {
+                    const commentsData = [];
+                    for (const commentDoc of snapshot.docs) {
+                        const commentData = commentDoc.data();
+                        // 사용자 정보 가져오기
+                        const userDocRef = doc(firebaseDataBase, 'users', commentData.userId);
+                        const userDocSnapshot = await getDoc(userDocRef);
+
+                        if (userDocSnapshot.exists()) {
+                            const userData = userDocSnapshot.data();
+                            commentsData.push({
+                                id: commentDoc.id,
+                                ...commentData,
+                                userName: userData.displayName, // 사용자 이름 추가
+                                nickname: userData.nickname, // 사용자 닉네임 추가
+                                profileImage: userData.profileImage, // 사용자 프로필 이미지 추가
+                                createAt: commentData.createAt ? commentData.createAt.toDate() : null
+                            });
+                        }
+                    }
                     setComments(commentsData);
                 });
 
@@ -57,21 +72,20 @@ export default function Comment({ championId }) {
 
     return (
         <div>
-            {/* <div className='flex items-center text-lol-gold p-4 gap-4'>
-                <div className='w-14 h-14 rounded-full bg-white'></div>
-                <div className=''>
-                    <div>{}</div>
-                    <div>date</div>
-                </div>
-                <div className=''>contents</div>
-            </div> */}
-
             {comments.length === 0 ? (
                 <p>댓글이 없습니다.</p>
             ) : (
                 comments.map((comment) => (
                     <div key={comment.id}>
-                        <p>{comment.content}</p>
+                        <p className='text-1xl text-lol-gold'>
+                            {comment.content}
+                            {/* 추가: 작성 시간 및 사용자 정보 표시 */}
+                            {comment.createAt && (
+                                <span className='text-sm text-lol-silver'>
+                                    작성 시간: {comment.createAt.toLocaleString()} | 작성자: {comment.nickname} | 프로필 이미지: {comment.profileImage}
+                                </span>
+                            )}
+                        </p>
                     </div>
                 ))
             )}
