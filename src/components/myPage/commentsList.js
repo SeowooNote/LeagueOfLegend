@@ -1,5 +1,3 @@
-// CommentsList.js
-
 import React, { useEffect, useState } from "react";
 import { firebaseAuth, firebaseDataBase } from "../../firebase/firebase";
 import {
@@ -75,9 +73,8 @@ export default function CommentsList() {
 
     const handleDelete = async (id) => {
         console.log(id);
+        const docRef = doc(firebaseDataBase, "comments", id);
         try {
-            const docRef = doc(firebaseDataBase, "comments", id);
-            console.log(docRef);
             await deleteDoc(docRef); // 해당 ID의 문서 삭제
             console.log("Document successfully deleted!");
             // 삭제 후 UI 업데이트 등 필요한 작업 수행
