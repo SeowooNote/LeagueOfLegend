@@ -74,7 +74,7 @@
 
 <div align="center">
 
-![header](https://github.com/Wu-Lee-Do/LeagueOfLegend/assets/106566223/d01f43aa-7461-4fde-8d33-d98bc7fc90ab)
+![header](https://github.com/Wu-Lee-Do/LeagueOfLegend/assets/106566223/25e9a5ae-f8a8-4ba0-8f1e-0efb9a009b97)
 
 <table >
     <thead>
