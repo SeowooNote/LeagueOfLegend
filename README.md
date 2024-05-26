@@ -91,7 +91,7 @@
         </td>
         <td align="center">
             <a href="https://github.com/ez0603">
-                <img src="https://github.com/Novel-Ideas/gumeonggage-front/assets/83110386/37d1fc3b-f435-44d0-adb4-0404c1b71837" width="150" height="150" />
+                <img src="https://github.com/Wu-Lee-Do/LeagueOfLegend/assets/118997608/4298e68c-1ef0-4be4-a0b1-59078108c0cf" width="150" height="150" />
             </a>
         </td>
     </tbody>
@@ -134,12 +134,15 @@
 
 -   프로젝트 최종 발표
 
-> 공동 작업
-
--   디자인 도안 작업
--   Front 명세서 작성
--   API 명세서 작성
--   DB 설계
+<h3> 🛩 도경록 </h3>
+-   로그인/회원가입 페이지
+-   로그인/회원가입 기능 구현
+-   챔피언 리스트 페이지
+-   챔피언 리스트 조회 기능 구현
+-   챔피언 상세 페이지
+-   챔피언 상세 정보 조회 기능 구현
+-   챔피언 댓글 페이지
+-   챔피언 댓글 등록 기능 구현
 
 <p align="right" dir="auto">
 <a href="https://github.com/Novel-Ideas/gumeonggage-front">TOP 🔼</a>
@@ -223,9 +226,12 @@
 
 ---
 
-### 이지언
+### 도경록
 
 <div align="center">
-    <img src="https://github.com/Novel-Ideas/gumeonggage-front/assets/83110386/37d1fc3b-f435-44d0-adb4-0404c1b71837" width="200" height="200" />
+    <img src="https://github.com/Wu-Lee-Do/LeagueOfLegend/assets/118997608/4298e68c-1ef0-4be4-a0b1-59078108c0cf" width="200" height="200" />
 </div>
-<span>Nulla molestie arcu id scelerisque eleifend. Morbi blandit diam quis euismod eleifend. Suspendisse et viverra orci, ut rutrum augue. Maecenas non molestie orci, vel fermentum nunc. Proin efficitur elit ultricies, volutpat lacus id, suscipit erat. Vivamus placerat dolor at velit hendrerit, vitae eleifend justo aliquam. Aenean mollis, lacus sit amet iaculis sollicitudin, lectus tortor euismod mi, non sodales quam dui vitae turpis. Vivamus ex tortor, cursus eu enim non, lobortis elementum arcu.</span>
+<span>기존 상용화 되어있는 API를 활용한 프로젝트를 이번에 처음 진행하게 되었습니다.여러 자료들을 찾아보면서, 이러한 프로젝트 주제를 선정한 사람들의 블로그 게시물의 코드들과 구현 화면들을 보며 프로젝트의 틀을 잡고 작업을 진행했습니다. 이를 통해 firebase, LOL API 를 통해 백엔드 작업에 대한 코드 로직을 구현하지 않아도 클라이언트 요청에 대한 응답을 잘 받아낼 수 있게 하였습니다.</br>
+그러나 저희 팀에서 원하는 방향대로 코드를 커스텀하여 구현하는데 있어서는 블로그 글들이 아닌 공식 문서를 참고하는게 가장 좋다는 것을 깨달았고 이를 활용하여 구현하였습니다.</br>
+이를 통해 앞으로 사용하고자 하는 API 관련 공식 문서에 대한 이해도를 높여 원할한 활용 능력을 키우고자 다짐하였습니다. 또한 LOL 전적검색 관련 API를 활용하고자 하였지만, 하루 3번의 API 요청 갯수의 제한으로 만들지 못한 아쉬움이 남았습니다.
+</span>
