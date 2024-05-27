@@ -104,35 +104,21 @@
 
 ## 💼 역할 분담
 
-<h3> 🛩 팀장: 이동윤 </h3>
+<h3> 🛩 이동윤 </h3>
 
-### 🔧 Back-End
-
--   관리자 회원가입
--   관리자 로그인
--   매출 전체 조회
--   제품별 매출 조회
--   메뉴 카테고리 조회
--   사용자 포인트 조회
--   사용자 포인트 적립 및 사용
--   점포 설정
-
-### 🖥 Front-End
-
--   관리자 로그인 페이지
--   포인트 메인 페이지
--   포인트 적립 페이지
--   포인트 사용 페이지
--   메뉴 페이지
--   관리자 메인 페이지
--   관리자 점포 매출 페이지
--   관리자 메뉴 추가 페이지
--   관리자 결제 내역 페이지
--   관리자 점포 설정 페이지
-
-### etc.
-
--   프로젝트 최종 발표
+-   아이템 리스트 페이지
+-   아이템 리스트 조회 기능 구현
+-   아이템 상세 페이지
+-   아이템 상세 정보 조회 기능 구현
+-   아이템 장바구니 페이지
+-   아이템 장바구니 담기 및 조회 기능 구현
+-   아이템 검색 기능 구현
+-   마이페이지 구현
+-   사용자 프로필 이미지, 배경화면 이미지 변경 페이지
+-   사용자 프로필 이미지, 배경화면 이미지 변경 기능 구현
+-   사용자 닉네임 변경 기능 구현
+-   사용자가 쓴 댓글 리스트 조회 기능 구현
+-   사용자가 쓴 댓글 수정 및 삭제 기능 구현
 
 <h3> 🛩 도경록 </h3>
 
@@ -191,14 +177,14 @@
 
 ### ⛓️ node_modules(Front-end)
 
-| 모듈 이름                                                                   | 용도                                       |
-| --------------------------------------------------------------------------- | ------------------------------------------ |
-| tailwindcss                                                                 | 리액트 내 css 적용                         |
-| testing-library/jest-dom, testing-library/react, testing-library/user-event | 리액트 dom 테스트                          |
-| firebase                                                                    | 저장된 이미지를 업로드                     |
-| react-dom, react-router-dom                                                 | 주소 요청 발생 시 각 페이지로 이동         |
-| react, react-scripts                                                        | 리액트 라이브러리 적용                     |
-| web-vitals                                                                  | 사용자의 웹 바이탈 항목 측정               |
+| 모듈 이름                                                                   | 용도                               |
+| --------------------------------------------------------------------------- | ---------------------------------- |
+| tailwindcss                                                                 | 리액트 내 css 적용                 |
+| testing-library/jest-dom, testing-library/react, testing-library/user-event | 리액트 dom 테스트                  |
+| firebase                                                                    | 저장된 이미지를 업로드             |
+| react-dom, react-router-dom                                                 | 주소 요청 발생 시 각 페이지로 이동 |
+| react, react-scripts                                                        | 리액트 라이브러리 적용             |
+| web-vitals                                                                  | 사용자의 웹 바이탈 항목 측정       |
 
 <p align="right" dir="auto">
 <a href="https://github.com/Novel-Ideas/gumeonggage-front">TOP 🔼</a>
@@ -223,7 +209,10 @@
 <div align="center">
     <img src="https://github.com/Novel-Ideas/gumeonggage-front/assets/83110386/50f5a224-bbbc-4486-9ce0-b873d962898d" width="200" height="200" />
 </div>
-<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed vulputate tortor, vel auctor nunc. Suspendisse nec varius quam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi eu mauris varius, tincidunt mi ut, commodo mauris. Quisque lacinia lobortis urna. Vestibulum id lacinia sapien, eget gravida massa. Donec id eros lacinia, lacinia nulla ac, ornare lorem. Proin ut lacus congue ex consectetur faucibus a sit amet velit. Pellentesque pulvinar egestas nibh at aliquam. Phasellus porttitor posuere lacus, id porta ante. Aenean congue nibh eu ex aliquam, ut sollicitudin risus semper. Ut lobortis, enim eu pretium dignissim, enim tortor interdum libero, eu venenatis ex mi vitae nisi. Nunc suscipit, dolor sit amet euismod varius, sapien neque ullamcorper turpis, a commodo dolor arcu at orci. Maecenas tempor turpis et arcu sagittis euismod.</span>
+<span>제가 좋아하기도 하고 사람들이 흔히 하는 게임을 주제로 프로젝트를 하게 되어 즐겁게 진행하였습니다. 여러 자료를 찾아보면서 사용할 수 있는  API들이나 데이터들을 찾았을 때 머릿속으로 프로젝트를 어떻게 할 건지 그림을 그려가며 진행하였지만, 생각보다 어려움에 부딪히는 순간들도 있었습니다. 그때마다 포기하지 않고 결국 성공했을 때 큰 보람을 느꼈던 프로젝트였습니다.<br/>
+이번 프로젝트에서 처음으로 Firebase를 이용하여 데이터들을 저장하는 데 사용하였는데 처음 사용해 보는 것이기도 했고 익숙지 않아 헤맸던 시간이 많았습니다. 그렇지만 공식 문서를 찾아본다거나 검색을 통해 알아보고 팀원과 끊임없는 정보 교류 끝에 완성할 수 있었습니다. 이때 혼자라면 쉽지 않았겠지만, 팀원과 함께라서 가능했다고 생각했고 소통과 협업의 중요성을 깨달았습니다.<br/>
+그리고 React에 대해 완벽히 숙지하지 않은 상태에 코드를 짜다 보니 스파게티 코드가 되거나 다른 사람이 이해하기 어려운 코드가 되어서 아쉬움이 많이 남았습니다. 다음 프로젝트 진행할 때는 숙지가 된 상태로 다시 완벽하게 만들어보고 싶다는 생각을 많이 하였습니다.
+</span>
 
 ---
 
