@@ -204,7 +204,7 @@
 
 ## 💡 느낀점
 
-### 이동윤(팀장)
+### 이동윤
 
 <div align="center">
     <img src="https://github.com/Novel-Ideas/gumeonggage-front/assets/83110386/50f5a224-bbbc-4486-9ce0-b873d962898d" width="200" height="200" />
