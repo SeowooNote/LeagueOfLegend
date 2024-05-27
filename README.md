@@ -67,7 +67,7 @@
 <br/>
 
 <p align="right" dir="auto">
-<a href="https://github.com/Novel-Ideas/gumeonggage-front">TOP 🔼</a>
+<a href="https://github.com/Wu-Lee-Do/LeagueOfLegend">TOP 🔼</a>
 </p>
 
 ## 👥 팀원 소개
@@ -99,7 +99,7 @@
 </div>
 
 <p align="right" dir="auto">
-<a href="https://github.com/Novel-Ideas/gumeonggage-front">TOP 🔼</a>
+<a href="https://github.com/Wu-Lee-Do/LeagueOfLegend">TOP 🔼</a>
 </p>
 
 ## 💼 역할 분담
@@ -132,14 +132,7 @@
 -   챔피언 댓글 등록 기능 구현
 
 <p align="right" dir="auto">
-<a href="https://github.com/Novel-Ideas/gumeonggage-front">TOP 🔼</a>
-</p>
-
-<br/>
-<br/>
-
-<p align="right" dir="auto">
-<a href="https://github.com/Novel-Ideas/gumeonggage-front">TOP 🔼</a>
+<a href="https://github.com/Wu-Lee-Do/LeagueOfLegend">TOP 🔼</a>
 </p>
 
 <br/>
@@ -187,7 +180,7 @@
 | web-vitals                                                                  | 사용자의 웹 바이탈 항목 측정       |
 
 <p align="right" dir="auto">
-<a href="https://github.com/Novel-Ideas/gumeonggage-front">TOP 🔼</a>
+<a href="https://github.com/Wu-Lee-Do/LeagueOfLegend">TOP 🔼</a>
 </p>
 
 <br/>
@@ -196,7 +189,7 @@
 ## 🖥 화면 구현
 
 <p align="right" dir="auto">
-<a href="https://github.com/Novel-Ideas/gumeonggage-front">TOP 🔼</a>
+<a href="https://github.com/Wu-Lee-Do/LeagueOfLegend">TOP 🔼</a>
 </p>
 
 </br>
