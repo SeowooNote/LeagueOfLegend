@@ -32,7 +32,7 @@ export default function Main({showPopup, setShowPopup}) {
     <div className="flex justify-center items-center relative">
       <video loop autoPlay muted playsInline>
         <source
-          src="https://www.leagueoflegends.com/static/hero-c35bd03ceaa5f919e98b20c905044a3d.webm"
+          src="https://cmsassets.rgpub.io/sanity/files/dsfx7636/news/8ab3e227121c53aacab0c9b9f7a48adbc65db520.webm"
           type="video/webm"
         ></source>
       </video>
